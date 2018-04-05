@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      .character{color:black;}
+      .word{color:gray;}
+    </style>
+
+    <script>
+      var req = new XMLHttpRequest(); // HTTP 요청을 만들 수 있는 새로운 객체 생성
+      req.onreadystatechange = function a(){
+        //onreadystatechange : readyState가 변할때마다 호출되는 콜백함수
+          console.log(this.readyState, this.status);
+          //readyState  속성 : AJAX 요청에 따라 0~4까지 변화함
+          //status : HTTP response의 응답 헤더에 기록된 코드
+          if(this.readyState == 4){
+            console.log(this.response); //req.response에 저장됨
+            //JSON(Javascript Object Notification) : 자바스크립트의 객체를 문자열로 표현
+            //JSON.stringify(object) : 인자로 받은 객체를 JSON 문자열로 반환
+            var data = JSON.parse(this.response); //문자열을 Javascript Object로 변환
+            for(var i in data){
+              var t = document.getElementById("template").cloneNode(true);
+              t.removeAttribute("id");
+              t.children[0].innerText = data[i].id;
+              t.children[1].innerText = data[i].msg;
+              document.body.appendChild(t);
+            }
+          }
+      }
+      req.open("GET", "json_data.txt"); // http request method와 URL 설정
+      req.send(); // 요청 전송
+
+
+      //비동기 방식으로 요청하기 때문에 메소드 호출 후, 바로 코드에 접근하면 데이터가 비어있음
+      //AJAX 진행에 따라 호출되는 callback 함수 활용 필요
+    </script>
+
+  </head>
+  <body>
+    <p id="template">
+      <span class="character">주인공</span> : <span class="word">명대사</span>
+    </p>
+  </body>
+</html>
