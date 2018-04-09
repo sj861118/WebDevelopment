@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "utf-8">
+    <title></title>
+    <style>
+      #grid{
+        border:5px solid pink;
+        display:grid;
+        grid-template-columns: 150px 1fr;
+        <!--
+        fr : 화면 전체를 기준으로 자동으로 조절 된다.
+        caniuse.com --> css html js 기술 중에 웹브라우저에서 채택하고 있는 통계를 보여준다..
+        -->
+      }
+      div{
+        border:5px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <!--div... 의미없고 디자인을 위해 쓰임 블럭레벨.
+        span   div와 유사. 인라인-->
+    <div id="grid">
+      <div>NAVIGATION</div>
+      <div>ARTICLE</div>
+    </div>
+  </body>
+</html>
