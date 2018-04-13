@@ -1,15 +1,35 @@
 var express = require('express');
 var bodyParser = require('body-parser')
 var fs = require('fs');
-
+var multer = require('multer');  // file upload
 var app = express();
 
-app.set('views', './views_file'); //제이드 파일 경로 설정
-app.set('view engine', 'jade'); //템플릿엔진에 제이드 사용 설정
+var _storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    //if를 통해 파일 형식에 따라 다른폴더에 ..
+    cb(null, 'uploads/')
+
+  },
+  filename: function(req, file, cb){
+    //파일 존재 여부에 따라 파일 명 변경..
+    cb(null, file.originalname)
+  }
+})
+var upload = multer({storage:_storage});
+
+app.set('views', './views_file'); //jade file path
+app.set('view engine', 'jade'); //use jade
 app.locals.pretty = true;
 
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.get('/upload', function(req, res){
+  res.render('upload');
+})
+app.post('/upload', upload.single('userfile'), function(req, res){
+  console.log(req.file);
+  res.send('uploaded'+req.file.filename);
+})
 app.get('/topic/new', function(req, res){
   fs.readdir('data', function(err, files){
     if(err){
