@@ -1,0 +1,26 @@
+header{
+  border-bottom: 1px solid gray;
+  padding-left: 11px;
+  text-align: center;
+}
+body{
+  margin:0;
+}
+body.black{
+  background-color: black;
+  color:white;
+}
+nav{
+  border-right: 1px solid gray;
+  width:200px;
+  height:10240px;
+  float:left;
+}
+nav ol{
+  margin:0;
+}
+#content{
+  padding-left:20px;
+  float:left;
+  width:500px;
+}
